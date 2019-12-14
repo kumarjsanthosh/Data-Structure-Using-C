@@ -1,43 +1,112 @@
 #include <stdio.h>
-#include <stdlib.h>
+
+#define CAPACITY 3
+#include<stdlib.h>
+void insert(int element);
+void delete();
+void display();
+
+int queue[CAPACITY];
+int front = 0;
+int rear = 0;
+
 
 int main()
 {
+ int ch, ele;
+  while(1)
+  {
 
-    // This pointer will hold the
-    // base address of the block created
-    int* ptr;
-    int n, i;
+   printf("press 1 for insert operation\n");
+   printf("press 2 for delete operation\n");
+   printf("press 3 for traverse or display the stack\n");
+   printf("press 4 for quit\n");
 
-    // Get the number of elements for the array
-    n = 5;
-    printf("Enter number of elements: %d\n", n);
 
-    // Dynamically allocate memory using malloc()
-    ptr = (int*)malloc(n * sizeof(int));
 
-    // Check if the memory has been successfully
-    // allocated by malloc or not
-    if (ptr == NULL) {
-        printf("Memory not allocated.\n");
-        exit(0);
-    }
-    else {
+ printf("enter the choice to perform operation\n");
+ scanf("%d", &ch);
 
-        // Memory has been successfully allocated
-        printf("Memory successfully allocated using malloc.\n");
+  switch(ch)
+  {
+   case 1: printf("enter the element to insert inside the queue\n");
+     scanf("%d", &ele);
 
-        // Get the elements of the array
-        for (i = 0; i < n; ++i) {
-            ptr[i] = i + 1;
-        }
+     insert(ele);
+     break;
 
-        // Print the elements of the array
-        printf("The elements of the array are: ");
-        for (i = 0; i < n; ++i) {
-            printf("%d, ", ptr[i]);
-        }
-    }
+   case 2: delete();
+     break;
 
-    return 0;
+
+   case 3: display();
+     break;
+
+   case 4: exit(0);
+
+   default: printf("you entered wrong choice\n");
+
+  }
+
+  }
+ return 0;
+}
+
+
+
+
+void insert(int element)
+{
+ if(rear == CAPACITY)
+ {
+  printf("QUEUE IS FULL\n");
+ }
+ else
+ {
+  queue[rear] = element;
+  rear++;
+
+  printf(" %d  is inserted in the queue\n", element);
+ }
+}
+
+
+void delete()
+{
+ int i, ele;
+
+ if(front == rear)
+ {
+  printf("QUEUE IS EMPTY\n");
+ }
+ else
+ {
+  ele = queue[front];
+
+  printf("%d   is deleted\n", ele);
+
+  for(i = 0; i < rear-1; i++)
+   queue[i] = queue[i+1];
+   rear -- ;
+ }
+}
+
+
+void display()
+{
+ int i;
+
+ if(front == rear)
+ {
+  printf("QUEUE IS EMPTY\n");
+ }
+ else
+ {
+  printf("items are in the queue\n");
+  for(i =front; i < rear; i++)
+  {
+   printf("%d   ", queue[i]);
+  }
+  printf("\n");
+ }
 }

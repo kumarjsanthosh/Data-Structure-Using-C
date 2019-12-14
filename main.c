@@ -1,42 +1,92 @@
-// A C program to make a rainbow. This program would only
-// work in Turbo C compiler in DOS compatible machine
 #include<stdio.h>
-
-#include<stdlib.h>
-// function for making of rainbow
-void rainbow()
-{
-	// auto detection
-	int gdriver = DETECT,gmode;
-	int x, y, i;
-
-	// initialize graphics mode(passed three arguments to
-	// initgraph function)
-	// &gdriver is the address of gdriver variable, &gmode is
-	// the address of gmode and
-	// "C:\\Turboc3\\BGI" is the directory path where BGI files are stored
-	initgraph(&gdriver,&gmode,"C:\\Turboc3\\BGI");
-
-	x = getmaxx() / 2;//finding centre x-ordinate of screen
-	y = getmaxy() / 2;//finding centre y-ordinate of screen
-
-	for (i=30; i<200; i++)
-	{
-		// delay function under dos.h for holding the
-		// function for some time
-		delay(100);
-
-		// selecting color for making of rainbow
-		setcolor(i/10);
-
-		// making of arc with fixed centre and increasing radius
-		arc(x, y, 0, 180, i-10);
-	}
-}
-// driver program
+int stack[100],choice,n,top,x,i;
+void push(void);
+void pop(void);
+void display(void);
 int main()
 {
-	rainbow();
-	return 0;
-}
+    //clrscr();
+    top=-1;
+    printf("\n Enter the size of STACK[MAX=100]:");
+    scanf("%d",&n);
+    printf("\n\t STACK OPERATIONS USING ARRAY");
+    printf("\n\t--------------------------------");
+    printf("\n\t 1.PUSH\n\t 2.POP\n\t 3.DISPLAY\n\t 4.EXIT");
+    do
+    {
+        printf("\n Enter the Choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            case 2:
+            {
+                pop();
+                break;
+            }
+            case 3:
+            {
+                display();
+                break;
+            }
+            case 4:
+            {
+                printf("\n\t EXIT POINT ");
+                break;
+            }
+            default:
+            {
+                printf ("\n\t Please Enter a Valid Choice(1/2/3/4)");
+            }
 
+        }
+    }
+    while(choice!=4);
+    return 0;
+}
+void push()
+{
+    if(top>=n-1)
+    {
+        printf("\n\tSTACK is over flow");
+
+    }
+    else
+    {
+        printf(" Enter a value to be pushed:");
+        scanf("%d",&x);
+        top++;
+        stack[top]=x;
+    }
+}
+void pop()
+{
+    if(top<=-1)
+    {
+        printf("\n\t Stack is under flow");
+    }
+    else
+    {
+        printf("\n\t The popped elements is %d",stack[top]);
+        top--;
+    }
+}
+void display()
+{
+    if(top>=0)
+    {
+        printf("\n The elements in STACK \n");
+        for(i=top; i>=0; i--)
+            printf("\n%d",stack[i]);
+        printf("\n Press Next Choice");
+    }
+    else
+    {
+        printf("\n The STACK is empty");
+    }
+
+}

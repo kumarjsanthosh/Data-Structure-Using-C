@@ -1,112 +1,42 @@
-#include <stdio.h>
+// A C program to make a rainbow. This program would only
+// work in Turbo C compiler in DOS compatible machine
+#include<stdio.h>
 
-#define CAPACITY 3
 #include<stdlib.h>
-void insert(int element);
-void delete();
-void display();
+// function for making of rainbow
+void rainbow()
+{
+	// auto detection
+	int gdriver = DETECT,gmode;
+	int x, y, i;
 
-int queue[CAPACITY];
-int front = 0;
-int rear = 0;
+	// initialize graphics mode(passed three arguments to
+	// initgraph function)
+	// &gdriver is the address of gdriver variable, &gmode is
+	// the address of gmode and
+	// "C:\\Turboc3\\BGI" is the directory path where BGI files are stored
+	initgraph(&gdriver,&gmode,"C:\\Turboc3\\BGI");
 
+	x = getmaxx() / 2;//finding centre x-ordinate of screen
+	y = getmaxy() / 2;//finding centre y-ordinate of screen
 
+	for (i=30; i<200; i++)
+	{
+		// delay function under dos.h for holding the
+		// function for some time
+		delay(100);
+
+		// selecting color for making of rainbow
+		setcolor(i/10);
+
+		// making of arc with fixed centre and increasing radius
+		arc(x, y, 0, 180, i-10);
+	}
+}
+// driver program
 int main()
 {
- int ch, ele;
-  while(1)
-  {
-
-   printf("press 1 for insert operation\n");
-   printf("press 2 for delete operation\n");
-   printf("press 3 for traverse or display the stack\n");
-   printf("press 4 for quit\n");
-
-
-
- printf("enter the choice to perform operation\n");
- scanf("%d", &ch);
-
-  switch(ch)
-  {
-   case 1: printf("enter the element to insert inside the queue\n");
-     scanf("%d", &ele);
-
-     insert(ele);
-     break;
-
-   case 2: delete();
-     break;
-
-
-   case 3: display();
-     break;
-
-   case 4: exit(0);
-
-   default: printf("you entered wrong choice\n");
-
-  }
-
-  }
- return 0;
+	rainbow();
+	return 0;
 }
 
-
-
-
-void insert(int element)
-{
- if(rear == CAPACITY)
- {
-  printf("QUEUE IS FULL\n");
- }
- else
- {
-  queue[rear] = element;
-  rear++;
-
-  printf(" %d  is inserted in the queue\n", element);
- }
-}
-
-
-void delete()
-{
- int i, ele;
-
- if(front == rear)
- {
-  printf("QUEUE IS EMPTY\n");
- }
- else
- {
-  ele = queue[front];
-
-  printf("%d   is deleted\n", ele);
-
-  for(i = 0; i < rear-1; i++)
-   queue[i] = queue[i+1];
-   rear -- ;
- }
-}
-
-
-void display()
-{
- int i;
-
- if(front == rear)
- {
-  printf("QUEUE IS EMPTY\n");
- }
- else
- {
-  printf("items are in the queue\n");
-  for(i =front; i < rear; i++)
-  {
-   printf("%d   ", queue[i]);
-  }
-  printf("\n");
- }
-}
